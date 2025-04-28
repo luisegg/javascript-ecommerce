@@ -143,14 +143,14 @@ listarPaises2(paisesNorte)
 
 
 
-//VARIABLES GLOBALES - ACCESOS AL DOM
+//################### VARIABLES GLOBALES - ACCESOS AL DOM ###################
 const carrito = []
 
 const divContainer = document.getElementById("container")
 const divCategories = document.getElementById("categories")
 const btnCheckout = document.getElementById("botonCheckout")
 
-//EVENTOS
+//################### EVENTOS ###################
 btnCheckout.onclick = function() {
     console.log('Ir a la pagina  checkout')
 }
@@ -161,7 +161,7 @@ btnCheckout.onclick = function() {
 
 
 
-//FUNCIONES DE LOGICA
+//################### FUNCIONES DE LOGICA ###################
 
 //Crea elementos como el siguiente: <span class="category">Todos</span>
 function cargarCategorias(){
@@ -247,8 +247,5 @@ cargarCategorias()
 cargarProductos()
 
 //document.appendChild(crearCardHTML())
-
-
-//EVENTOS
 
 
