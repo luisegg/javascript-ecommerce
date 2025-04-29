@@ -150,18 +150,72 @@ const divContainer = document.getElementById("container")
 const divCategories = document.getElementById("categories")
 const btnCheckout = document.getElementById("botonCheckout")
 
+const inputSearch = document.getElementById("inputSearch")
+
 //################### EVENTOS ###################
+/*
 btnCheckout.onclick = function() {
     console.log('Ir a la pagina  checkout')
 }
+*/
 
-//Atributos on - Actualmente ya no se usan los atributos on
-//<button onclick="agregarAlCarrito()">Comprar</button>
+/*
+btnCheckout.addEventListener("click", function(){
+    console.log('Ir a la pagina  checkout') 
+})
+*/
 
+btnCheckout.addEventListener("click", () => {
+    //console.log('Ir a la pagina  checkout') 
+    if(carrito.length > 0 ){
+        location.href = "checkout.html"
+    }else{
+        alert("Carga al menos un producto en el carrito")
+    }
+})
 
+btnCheckout.addEventListener("mousemove", () => {
+    if(carrito.length > 0) {
+        btnCheckout.title = "Productos en carrito: "+ carrito.length
+    }else{
+        btnCheckout.title = "Sin productos en carrito"
+    }
+})
 
+/*
+inputSearch.addEventListener("input", () => {
+    console.clear()
+    console.log(inputSearch.value)
+})
+    */
+
+inputSearch.addEventListener("keypress", (event) => {
+    //console.log(event)
+    if(event.key === "Enter" && inputSearch.value.trim() !== ""){
+        console.log("Ejecutar el método de búsqueda: "+ inputSearch.value)
+    }
+
+})
 
 //################### FUNCIONES DE LOGICA ###################
+
+
+function cargarCategoriasProductos(){
+    if(arrayCategorias.length > 0){
+        divCategories.innerHTML = ""
+        for (let categoria of arrayCategorias){
+            divCategories.innerHTML += crearSpanCategoria(categoria)
+        }
+    }
+}
+
+function crearSpanCategoria(cat){
+    return `<span class="category">${cat}</span>`
+}
+
+function activarClicksEnCategorias(){
+
+}
 
 //Crea elementos como el siguiente: <span class="category">Todos</span>
 function cargarCategorias(){
@@ -176,10 +230,14 @@ function cargarCategorias(){
             //spanCategoria.className = "category"
             spanCategoria.classList.add("category")
 
-            // TODO:  definir evento click
+            //Definir evento click
+            spanCategoria.onclick = function(){
+                alert('Seleccionaste la categoria: '+categoria)
+            }
             divCategories.appendChild(spanCategoria)
         }
     }
+    // TODO:Nos falta definir el camino de que falla
 }
 
 
@@ -190,6 +248,7 @@ function crearCardHTML(prod){
 
 
     //Template String = Plantilla de texto
+    //Template literal = cuando se usan `${}`
     return `<div class="card">
                 <div class="product-image">${prod.imagen}</div>
                 <div class="product-name">${prod.nombre}</div>
@@ -234,8 +293,16 @@ function activarClicksBtnComprar(){
     if(botonesComprar.length > 0){
         for(let botonComprar of botonesComprar){
             botonComprar.onclick = function(){
-                console.log(botonComprar.dataset.codigo)
-                // TODO: Buscar en array productos, el producto usando el codigo
+                //console.log(botonComprar.dataset.codigo)
+                //TODO: Usar find para simplificar
+                for (let producto of productos){
+                    if (producto.id === botonComprar.dataset.codigo) {
+                        carrito.push(producto)
+                        console.clear()
+                        console.table(carrito)
+                        break
+                    }
+                }
                 //Agregar al array una copia del producto completo.
             }
         }
@@ -244,7 +311,10 @@ function activarClicksBtnComprar(){
 
 //FUNCION PRINCIPAL
 cargarCategorias()
+//cargarCategoriasProductos()
 cargarProductos()
+activarClicksBtnComprar()
+
 
 //document.appendChild(crearCardHTML())
 
