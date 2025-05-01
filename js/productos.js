@@ -1,8 +1,11 @@
 //ARRAY DE ELEMENTOS
+//const arrayCategorias = []
 const arrayCategorias = ["Todos", "Fruta", "Verdura", "Comida", "Bebida"]
 
 
 //ARRAY DE OBJETOS
+//const productos = []
+
 const productos = [
     { id: "1", imagen: "🍌", nombre: "Bananas", precio: 1220, categoria: "Fruta" },
     { id: "2", imagen: "🍎", nombre: "Manzana roja", precio: 1890, categoria: "Fruta" },
@@ -53,3 +56,64 @@ const productos = [
     { id: "47", imagen: "🥃", nombre: "Whisky añejo", precio: 11820, categoria: "Bebida" },
     { id: "48", imagen: "🍊", nombre: "Naranja", precio: 915, categoria: "Fruta" }
 ]
+ 
+
+//Funcion de orden superior
+function saludar(fn, mensaje){
+    fn(mensaje)
+}
+
+function recorrerArrayProductos(){
+    productos.forEach((producto) =>{
+        console.log(producto)
+    })
+}
+
+function buscarProductoPorId() {
+    /*
+    let productoEncontrado = productos.find((producto) => producto.id === '140')
+    if(productoEncontrado !== undefined){
+        console.log(productoEncontrado)
+    } else{
+        console.warn("No se encontró el producto indicado")
+    }
+        */
+
+    for (let i = 0; i < productos.length; i++){
+        if(productos[i].id === "21"){
+            console.log(productos[i])
+        }
+    }
+    
+}
+
+function buscarCategoria(){
+    let categoriaEncontrada = arrayCategorias.find((categoria) => categoria === "Bebida")
+    console.log(categoriaEncontrada)
+
+    /*
+    let incluye = arrayCategorias.includes("Bebidas")
+    console.log(incluye)
+
+    let indice = arrayCategorias.indexOf("Bebida")
+    console.log(indice)
+    */
+
+    
+}
+
+
+
+function filtrarProductosPorCategoria(){
+    let cate = prompt("Ingresa la categoría a filtrar")
+
+    if(cate.trim() !== ""){
+        const arrayFiltrado = productos.filter((producto) => producto.categoria === cate)
+        if(arrayFiltrado.length > 0){
+            console.table(arrayFiltrado)
+        }else{
+            console.log(" \u26A0 no hay productos con esa categoria")
+        }
+        
+    }
+}

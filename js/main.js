@@ -170,7 +170,7 @@ btnCheckout.addEventListener("click", () => {
     if(carrito.length > 0 ){
         location.href = "checkout.html"
     }else{
-        alert("Carga al menos un producto en el carrito")
+        console.warn("Carga al menos un producto en el carrito")
     }
 })
 
@@ -192,7 +192,13 @@ inputSearch.addEventListener("input", () => {
 inputSearch.addEventListener("keypress", (event) => {
     //console.log(event)
     if(event.key === "Enter" && inputSearch.value.trim() !== ""){
+        //debugger
         console.log("Ejecutar el método de búsqueda: "+ inputSearch.value)
+        let param = inputSearch.value.trim().toLowerCase()
+        let filtrado = productos.filter((producto) => producto.nombre.toLowerCase().includes(param))
+        cargarProductos(filtrado)
+
+    
     }
 
 })
@@ -230,16 +236,36 @@ function cargarCategorias(){
             //spanCategoria.className = "category"
             spanCategoria.classList.add("category")
 
+            spanCategoria.addEventListener("click", ()=>{
+
+                if(categoria === "Todos"){
+                    cargarProductos(productos)
+                }else{
+                    let productosFiltrados = productos.filter((producto) => producto.categoria === categoria)
+                    cargarProductos(productosFiltrados)
+                }
+                
+            })
+
             //Definir evento click
+            /*
             spanCategoria.onclick = function(){
-                alert('Seleccionaste la categoria: '+categoria)
+                console.log('Seleccionaste la categoria: '+categoria)
+                //Filtrar por los productos de la categoría seleccionada
             }
+            */
             divCategories.appendChild(spanCategoria)
         }
+    }else{
+        divCategories.innerHTML = crearMensajeErrorCategorias()
     }
-    // TODO:Nos falta definir el camino de que falla
+    
 }
 
+
+function crearMensajeErrorCategorias(){
+    return `<p class="categories-warning">⚠️ Error al cargar las categorias</p>`
+}
 
 //Template literal un cuando se usa el backtick `
 function crearCardHTML(prod){
@@ -276,14 +302,32 @@ function crearCardErrorHTML(){
                 </div>`
 }
 
-function cargarProductos(){
+function cargarProductos(array){
 
     //debugger
 
-    if(productos.length > 0){
-        for( let producto of productos){
+    if(array.length > 0){
+        divContainer.innerHTML = ""
+
+        /*
+        for(let i = 0; i < array.length; i++){
+            divContainer.innerHTML += crearCardHTML(array[i])
+        }*/
+
+        /* for( let producto of array){
             divContainer.innerHTML += crearCardHTML(producto)
-        }
+        }*/
+
+        array.forEach(producto => {
+            divContainer.innerHTML += crearCardHTML(producto)
+        });
+
+        //Se recomienda que cuando se tengan que recorrer arrays se use el forEach
+        //porque JS lo optimizó
+
+        activarClicksBtnComprar()
+    }else{
+        divContainer.innerHTML = crearCardErrorHTML()
     }
 }
 
@@ -294,7 +338,11 @@ function activarClicksBtnComprar(){
         for(let botonComprar of botonesComprar){
             botonComprar.onclick = function(){
                 //console.log(botonComprar.dataset.codigo)
-                //TODO: Usar find para simplificar
+                let productoParaCarrito = productos.find((producto) => producto.id === botonComprar.dataset.codigo)
+                carrito.push(productoParaCarrito)
+                console.clear()
+                console.table(carrito)
+                /*
                 for (let producto of productos){
                     if (producto.id === botonComprar.dataset.codigo) {
                         carrito.push(producto)
@@ -302,7 +350,8 @@ function activarClicksBtnComprar(){
                         console.table(carrito)
                         break
                     }
-                }
+                }*/
+                    
                 //Agregar al array una copia del producto completo.
             }
         }
@@ -312,8 +361,7 @@ function activarClicksBtnComprar(){
 //FUNCION PRINCIPAL
 cargarCategorias()
 //cargarCategoriasProductos()
-cargarProductos()
-activarClicksBtnComprar()
+cargarProductos(productos)
 
 
 //document.appendChild(crearCardHTML())
