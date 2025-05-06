@@ -6,6 +6,88 @@ const arrayCategorias = ["Todos", "Fruta", "Verdura", "Comida", "Bebida"]
 //ARRAY DE OBJETOS
 //const productos = []
 
+
+// const carritoTemporal = [
+//     { id: "1", imagen: "🍌", nombre: "Bananas", precio: 1220, categoria: "Fruta" },
+//     { id: "2", imagen: "🍎", nombre: "Manzana roja", precio: 1890, categoria: "Fruta" },
+//     { id: "3", imagen: "🥝", nombre: "Kiwis", precio: 760, categoria: "Fruta" },
+//     { id: "4", imagen: "🍈", nombre: "Melón", precio: 350, categoria: "Fruta" }
+// ]
+
+
+const carritoTemporal = [
+    { id: "1", imagen: "🍌", nombre: "Bananas", precio: 1220, cantidad:1, categoria: "Fruta" },
+    { id: "2", imagen: "🍎", nombre: "Manzana roja", precio: 1890, cantidad:1, categoria: "Fruta" },
+    { id: "3", imagen: "🥝", nombre: "Kiwis", precio: 760, cantidad:1, categoria: "Fruta" },
+    { id: "4", imagen: "🍈", nombre: "Melón", precio: 350, cantidad:1, categoria: "Fruta" }
+]
+
+
+function calcularCarrito(){
+    //acc = accumulator
+    //debugger
+    let totalCarrito = carritoTemporal.reduce((acc, producto)=> acc + producto.precio * producto.cantidad, 0)
+    console.log("Total del carrito: $", totalCarrito)
+}
+
+function mapearProductos(){
+    console.log('entra')
+    const productosSinCategoria = productos.map((producto) =>{
+        return {
+            id: producto.id,
+            nombre: producto.nombre,
+            imagen: producto.imagen,
+            precio: producto.precio
+        }
+    })
+    console.table(productosSinCategoria)
+}
+
+const IVA = 1.21
+function verProductosConIVA(){
+    const productosConIVA = productos.map((producto) =>{
+        return {
+            id: producto.id,
+            nombre: producto.nombre,
+            imagen: producto.imagen,
+            precio: parseFloat((producto.precio * IVA).toFixed(2))
+        }
+    })
+    console.table(productosConIVA)
+}
+
+function verProductosConMultiplesPrecios(){
+    const productosConIVA = productos.map((producto) =>{
+        return {
+            id: producto.id,
+            nombre: producto.nombre,
+            imagen: producto.imagen,
+            precio: producto.precio,
+            precio10off: parseFloat((producto.precio * 0.9).toFixed(2)),
+            precio5on: parseFloat((producto.precio * 1.05).toFixed(2))
+        }
+    })
+    console.table(productosConIVA)
+}
+
+function ordenarPorPrecio(){
+    let iteraciones = 0
+    productos.sort((a, b) => {
+        iteraciones++
+
+        if(a.precio > b.precio){
+            return 1
+        }else if(a.precio < b.precio){
+            return -1
+        }else{
+            return 0
+        }
+    })
+
+    console.log("Veces iteradas", iteraciones)
+    console.table(productos)
+}
+
 const productos = [
     { id: "1", imagen: "🍌", nombre: "Bananas", precio: 1220, categoria: "Fruta" },
     { id: "2", imagen: "🍎", nombre: "Manzana roja", precio: 1890, categoria: "Fruta" },

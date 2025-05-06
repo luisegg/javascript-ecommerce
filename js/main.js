@@ -189,6 +189,30 @@ inputSearch.addEventListener("input", () => {
 })
     */
 
+//Solo disponible para navegadores web tipo Blink (chronium)
+// inputSearch.addEventListener("search", (event) => {
+//     let param = inputSearch.value.trim().toLowerCase()
+//     let filtrado = productos.filter((producto) => producto.nombre.toLowerCase().includes(param))
+//     cargarProductos(filtrado)
+
+//     if(filtrado.length > 0){
+//         cargarProductos(filtrado)
+//     }else{
+//         //TODO: Libreria JS tipo Toast o alter()
+//         console.warn("No se encontraron resultados") //Notificar por pantalla al usuario
+//         cargarProductos(productos)
+
+//     }
+
+// })
+
+inputSearch.addEventListener("input", (event) => {
+    console.log(event.key)
+    if(event.target.value.trim() === ""){ //si esta vacio, entonces se limpió la caja de busqueda con la X
+        cargarProductos(productos) // vuelve a llamar a cargarProductos con el array completo
+    }
+})
+
 inputSearch.addEventListener("keypress", (event) => {
     //console.log(event)
     if(event.key === "Enter" && inputSearch.value.trim() !== ""){
@@ -198,6 +222,13 @@ inputSearch.addEventListener("keypress", (event) => {
         let filtrado = productos.filter((producto) => producto.nombre.toLowerCase().includes(param))
         cargarProductos(filtrado)
 
+        if(filtrado.length > 0){
+            cargarProductos(filtrado)
+        }else{
+            //TODO: Libreria JS tipo Toast o alter()
+            console.warn("No se encontraron resultados") //Notificar por pantalla al usuario
+
+        }
     
     }
 
@@ -302,10 +333,9 @@ function crearCardErrorHTML(){
                 </div>`
 }
 
+
+
 function cargarProductos(array){
-
-    //debugger
-
     if(array.length > 0){
         divContainer.innerHTML = ""
 
@@ -318,11 +348,9 @@ function cargarProductos(array){
             divContainer.innerHTML += crearCardHTML(producto)
         }*/
 
-        array.forEach(producto => {
-            divContainer.innerHTML += crearCardHTML(producto)
-        });
+        array.forEach(producto => divContainer.innerHTML += crearCardHTML(producto));
 
-        //Se recomienda que cuando se tengan que recorrer arrays se use el forEach
+        //Se recomienda que cuando se tengan que recorrer arrays se use el forEach (y no)
         //porque JS lo optimizó
 
         activarClicksBtnComprar()
