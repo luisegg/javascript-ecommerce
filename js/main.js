@@ -250,7 +250,8 @@ function cargarCategorias(){
     //debugger
 
     if(arrayCategorias.length > 0){
-        for( let categoria of arrayCategorias){
+
+        arrayCategorias.forEach((categoria) => {
             //console.log(categoria)
             const spanCategoria = document.createElement("span")
             spanCategoria.innerText = categoria
@@ -276,7 +277,7 @@ function cargarCategorias(){
             }
             */
             divCategories.appendChild(spanCategoria)
-        }
+        })
     }else{
         divCategories.innerHTML = crearMensajeErrorCategorias()
     }
@@ -350,10 +351,10 @@ function cargarProductos(array){
 }
 
 function activarClicksBtnComprar(){
-    const botonesComprar = document.getElementsByTagName("button")
+    const botonesComprar = document.querySelectorAll("button")
     
     if(botonesComprar.length > 0){
-        for(let botonComprar of botonesComprar){
+        botonesComprar.forEach((botonComprar) => {
             botonComprar.onclick = function(){
                 //console.log(botonComprar.dataset.codigo)
                 let productoParaCarrito = productos.find((producto) => producto.id === botonComprar.dataset.codigo)
@@ -369,10 +370,9 @@ function activarClicksBtnComprar(){
                         break
                     }
                 }*/
-                    
                 //Agregar al array una copia del producto completo.
             }
-        }
+        })
     }
 }
 
