@@ -236,16 +236,6 @@ inputSearch.addEventListener("keypress", (event) => {
 
 //################### FUNCIONES DE LOGICA ###################
 
-
-function cargarCategoriasProductos(){
-    if(arrayCategorias.length > 0){
-        divCategories.innerHTML = ""
-        for (let categoria of arrayCategorias){
-            divCategories.innerHTML += crearSpanCategoria(categoria)
-        }
-    }
-}
-
 function crearSpanCategoria(cat){
     return `<span class="category">${cat}</span>`
 }
@@ -388,7 +378,6 @@ function activarClicksBtnComprar(){
 
 //FUNCION PRINCIPAL
 cargarCategorias()
-//cargarCategoriasProductos()
 cargarProductos(productos)
 
 

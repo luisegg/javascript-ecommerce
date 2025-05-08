@@ -69,6 +69,8 @@ function validarCarritoVacio(){
 }
 
 
+
+//Definir eventos de btnComprar y btnVolver
 //EVENTOS
 btnVolver.addEventListener("click", ()=>{
     location.href = "index.html"
@@ -76,6 +78,8 @@ btnVolver.addEventListener("click", ()=>{
 //Another option is history.back() but that may not always work if the user navigated using the direct URL
 
 
+//btnComprar: simular la finalizacion de la compra, vaciar carrito, retornar a index.html
+//Eliminar productos del carrito previo a finalizar la compra
 btnComprar.addEventListener("click", ()=>{
     console.log("Compra finalizada, muchas gracias por elegirnos")
     btnComprar.setAttribute("disabled", "true")
@@ -87,8 +91,8 @@ btnComprar.addEventListener("click", ()=>{
 
 
 
-//TODO: Definir eventos de btnComprar y btnVolver
-//TODO: Definir una funcion que active evento click en quitar producto del carrito
+
+//Definir una funcion que active evento click en quitar producto del carrito
 function activarClickBotonesEliminar(){
     const botonesEliminar = document.querySelectorAll("td#delButton")
     botonesEliminar.forEach((boton)=>{
@@ -104,10 +108,9 @@ function activarClickBotonesEliminar(){
 }
 
 
-//TODO: btnComprar: simular la finalizacion de la compra, vaciar carrito, retornar a index.html
+
 //TODO: Ver LocalStorage y SessionStorage (mecanismos de almacenamiento local)
 //TODO: Objeto global JSON - nativo de JS - que permite convertir objectos a string i visceversa
-//TODO: ELiminar productos del carrito previo a finalizar la compra
 //TODO: Modificar el carrito para permitir cargar multiples producto en un unico registro (precio * cantidad)
 
 
