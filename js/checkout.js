@@ -1,8 +1,8 @@
 //Enlazarnos con los elementos HTML (DOM) para generar interaccion
-const tableBody = document.getElementById("tableBody")
-const totalPrice = document.getElementById("totalPrice")
-const btnVolver = document.getElementById("btnReturn")
-const btnComprar = document.getElementById("btnBuy")
+const tableBody = document.querySelector("#tableBody")
+const totalPrice = document.querySelector("#totalPrice")
+const btnVolver = document.querySelector("#btnReturn")
+const btnComprar = document.querySelector("#btnBuy")
 
 //Nos armamos un carrito modelos, con productos pre-cargados (traer productos desde index.html)
 const carrito = [

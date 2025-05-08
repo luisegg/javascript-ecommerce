@@ -146,11 +146,11 @@ listarPaises2(paisesNorte)
 //################### VARIABLES GLOBALES - ACCESOS AL DOM ###################
 const carrito = []
 
-const divContainer = document.getElementById("container")
-const divCategories = document.getElementById("categories")
-const btnCheckout = document.getElementById("botonCheckout")
+const divContainer = document.querySelector("#container")
+const divCategories = document.querySelector("#categories")
+const btnCheckout = document.querySelector("#botonCheckout")
 
-const inputSearch = document.getElementById("inputSearch")
+const inputSearch = document.querySelector("#inputSearch")
 
 //################### EVENTOS ###################
 /*
