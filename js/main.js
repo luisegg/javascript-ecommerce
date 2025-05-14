@@ -351,7 +351,7 @@ function cargarProductos(array){
 }
 
 function activarClicksBtnComprar(){
-    const botonesComprar = document.querySelectorAll("button")
+    const botonesComprar = document.querySelectorAll("button#buttonComprar")
     
     if(botonesComprar.length > 0){
         botonesComprar.forEach((botonComprar) => {
