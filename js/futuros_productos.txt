@@ -1,0 +1,51 @@
+Verduras / Vegetales
+🥕 Zanahoria
+🥗 Ensalada mixta (puede representar un mix vegetal)
+🥜 Maní (técnicamente legumbre)
+🌰 Castañas / nueces (snack o repostería)
+
+Frutas
+🫐 Moras (aunque aparecen arándanos, podría ser otra variedad)
+🧊 Cubitos de hielo (si vendes congelados)
+🫙 Mermelada (producto derivado de frutas)
+
+Comida
+🥪 Sándwich
+🌮 Taco
+🌯 Burrito
+🍔 Hamburguesa
+🍕 Pizza
+🍳 Huevos revueltos
+🥞 Panqueques
+🍜 Sopa ramen
+🍲 Arroz parboil
+🥟 Empanadas ó Dumplings
+🥠 Galletas de arroz
+🫓 Pan de pita
+
+Dulces y Postres
+🍰 Torta
+🧁 Cupcake
+🍫 Chocolate
+🍬 Caramelos
+🍯 Miel
+🍨 Helado
+🍦 Cono de helado
+
+Bebidas
+🥛 Leche
+🧋 Bubble tea
+🧉 Mate
+🥂 Sidra ó Champagne
+
+Carnes
+🥓 Tocino
+🍗 Muslo de pollo
+🍤 Camarón
+🥩 Bife / Carne roja
+
+Limpieza - Higiene
+🧽 Esponja (limpieza)
+🧼 Jabón
+🧻 Papel higiénico
+🧴 Aceite / cosmética
