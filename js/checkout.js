@@ -5,13 +5,17 @@ const btnVolver = document.querySelector("#btnReturn")
 const btnComprar = document.querySelector("#btnBuy")
 
 //Nos armamos un carrito modelos, con productos pre-cargados (traer productos desde index.html)
-const carrito = [
-    { id: "2", imagen: "🍎", nombre: "Manzana roja", precio: 1890, cantidad: 1, categoria: "Fruta" },
-    { id: "6", imagen: "🍅", nombre: "Tomates", precio: 940,  cantidad: 3, categoria: "Fruta" },
-    { id: "10", imagen: "🫐", nombre: "Arándanos", precio: 650,  cantidad: 2, categoria: "Fruta" },
-    { id: "14", imagen: "🍒", nombre: "Cerezas", precio: 1100,  cantidad: 5, categoria: "Fruta" }
-]
+function recuperarCarrito() {
+    const carritoTemporal = JSON.parse(localStorage.getItem("carrito"))
+    
+    if (carritoTemporal === null) {
+        return []
+    } else {
+        return carritoTemporal
+    }
+}
 
+const carrito = recuperarCarrito()
 
 //Funcion que retorne la fila HTML dinámica
 //toLocaleString lee la configuracion del SO
@@ -83,6 +87,7 @@ btnVolver.addEventListener("click", ()=>{
 btnComprar.addEventListener("click", ()=>{
     console.log("Compra finalizada, muchas gracias por elegirnos")
     btnComprar.setAttribute("disabled", "true")
+    localStorage.removeItem("carrito")
     carrito.length = 0
     setTimeout(()=> location.href = "index.html", 4000)
 })
@@ -101,6 +106,8 @@ function activarClickBotonesEliminar(){
             let indice = carrito.findIndex((producto) => producto.id === boton.dataset.codigo)
             carrito.splice(indice, 1)
             cargarCarritoDeCompras()
+            localStorage.setItem("carrito", JSON.stringify(carrito))
+            
 
         })
     })

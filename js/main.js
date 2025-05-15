@@ -1,3 +1,6 @@
+//API para generar Random Users:
+//https://api.randomuser.me/
+
 //VARIABLES GLOBALES
 
 /*
@@ -144,13 +147,24 @@ listarPaises2(paisesNorte)
 
 
 //################### VARIABLES GLOBALES - ACCESOS AL DOM ###################
-const carrito = []
-
 const divContainer = document.querySelector("#container")
 const divCategories = document.querySelector("#categories")
 const btnCheckout = document.querySelector("#botonCheckout")
 
 const inputSearch = document.querySelector("#inputSearch")
+
+
+function recuperarCarrito(){
+    const carritoTemporal = JSON.parse(localStorage.getItem("carrito"))
+    if(carritoTemporal === null){
+        return []
+    }else{
+        return carritoTemporal
+    }
+}
+
+const carrito = recuperarCarrito()
+
 
 //################### EVENTOS ###################
 /*
@@ -359,6 +373,19 @@ function activarClicksBtnComprar(){
                 //console.log(botonComprar.dataset.codigo)
                 let productoParaCarrito = productos.find((producto) => producto.id === botonComprar.dataset.codigo)
                 carrito.push(productoParaCarrito)
+                let carritoString = JSON.stringify(carrito)
+                localStorage.setItem("carrito", carritoString)
+
+                btnCheckout.classList.add("girar-trompo")
+
+
+                btnCheckout.addEventListener("animationend", () => btnCheckout.classList.remove("girar-trompo"))
+
+
+                // setTimeout(() =>{
+                //     btnCheckout.classList.remove("girar-trompo")
+                // }, 700)
+
                 console.clear()
                 console.table(carrito)
                 /*
