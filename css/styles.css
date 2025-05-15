@@ -53,6 +53,10 @@ body {
     }
 }
 
+.girar-trompo {
+    animation: trompoGiro 0.7s forwards;
+}
+
 .categories {
     gap: 40px;
     display: flex;
@@ -773,5 +777,23 @@ button:disabled:active {
             height: 50px;
             border-radius: 6px;
         }
+    }
+}
+
+@keyframes trompoGiro {
+    0% {
+        transform: scale(1) rotate(0deg);
+        animation-timing-function: ease-in;
+    }
+    20% {
+        transform: scale(1.9) rotate(720deg);
+        animation-timing-function: cubic-bezier(0.4, 0, 1, 1); /* fuerte aceleración */
+    }
+    80% {
+        transform: scale(1.6) rotate(1620deg); /* 4.5 vueltas */
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: scale(1) rotate(1800deg); /* 5 vueltas */
     }
 }
