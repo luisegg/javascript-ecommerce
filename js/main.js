@@ -150,8 +150,11 @@ listarPaises2(paisesNorte)
 const divContainer = document.querySelector("#container")
 const divCategories = document.querySelector("#categories")
 const btnCheckout = document.querySelector("#botonCheckout")
-
 const inputSearch = document.querySelector("#inputSearch")
+const urlProductos = "https://681c21a96ae7c794cf70c313.mockapi.io/productos"
+const productos = []
+
+
 
 
 function recuperarCarrito(){
@@ -339,6 +342,19 @@ function crearCardErrorHTML(){
 }
 
 
+function obtenerProductos(){
+    fetch(urlProductos)
+        .then((response) => {
+            if(response.status === 200) return response.json()
+            else throw new Error(`No se han podido obtener los productos ${response.status}`)
+        } )
+        .then((data) => productos.push(...data))
+        .then(() => cargarProductos(productos))
+        .catch((error) => {
+            divContainer.innerHTML = crearCardErrorHTML()
+        })
+}
+
 
 function cargarProductos(array){
     if(array.length > 0){
@@ -359,8 +375,6 @@ function cargarProductos(array){
         //porque JS lo optimizó
 
         activarClicksBtnComprar()
-    }else{
-        divContainer.innerHTML = crearCardErrorHTML()
     }
 }
 
@@ -377,8 +391,6 @@ function activarClicksBtnComprar(){
                 localStorage.setItem("carrito", carritoString)
 
                 btnCheckout.classList.add("girar-trompo")
-
-
                 btnCheckout.addEventListener("animationend", () => btnCheckout.classList.remove("girar-trompo"))
 
 
@@ -405,7 +417,9 @@ function activarClicksBtnComprar(){
 
 //FUNCION PRINCIPAL
 cargarCategorias()
-cargarProductos(productos)
+//cargarProductos(productos)
+obtenerProductos(productos)
+
 
 
 //document.appendChild(crearCardHTML())
