@@ -8,6 +8,11 @@ body {
 }
 
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,7 +44,7 @@ body {
 
 .shoping-cart {
     float: right;
-    margin-right: 20px;
+    margin-right: 40px;
 
     & img {
         width: 32px;
@@ -103,7 +108,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    padding-top: 30px;
+    padding-top: 150px;
     
     & input[type="search"] {
         outline: none;
@@ -331,7 +336,7 @@ article {
     margin: 0 auto;
     flex-direction: column;
     justify-content: center;
-    padding-top: 30px;
+    padding-top: 150px;
 
         & h2 {
             font-size: 20px;
