@@ -154,6 +154,8 @@ const inputSearch = document.querySelector("#inputSearch")
 const urlProductos = "https://681c21a96ae7c794cf70c313.mockapi.io/productos"
 const productos = []
 
+const arrayCategorias = ["Todos", "Fruta", "Verdura", "Comida", "Bebida"]
+
 
 
 
@@ -342,17 +344,35 @@ function crearCardErrorHTML(){
 }
 
 
-function obtenerProductos(){
-    fetch(urlProductos)
-        .then((response) => {
-            if(response.status === 200) return response.json()
-            else throw new Error(`No se han podido obtener los productos ${response.status}`)
-        } )
-        .then((data) => productos.push(...data))
-        .then(() => cargarProductos(productos))
-        .catch((error) => {
-            divContainer.innerHTML = crearCardErrorHTML()
-        })
+// function obtenerProductos(){
+//     fetch(urlProductos)
+//         .then((response) => {
+//             if(response.status === 200) return response.json()
+//             else throw new Error(`No se han podido obtener los productos ${response.status}`)
+//         } )
+//         .then((data) => productos.push(...data))
+//         .then(() => cargarProductos(productos))
+//         .catch((error) => {
+//             divContainer.innerHTML = crearCardErrorHTML()
+//         })
+// }
+
+
+//ASYNC - AWAIT
+async function obtenerProductos(){
+    try{
+        const response = await fetch(urlProductos)
+        if(response.status === 200){
+            const data = await response.json()
+            productos.push(...data)
+            cargarProductos(productos)
+        }else{
+            throw new Error('Error al obtener los productos')
+        }
+    }catch(error){
+        divContainer.innerHTML = crearCardErrorHTML()
+    }
+    
 }
 
 
@@ -390,6 +410,11 @@ function activarClicksBtnComprar(){
                 let carritoString = JSON.stringify(carrito)
                 localStorage.setItem("carrito", carritoString)
 
+                ToastIt.now({style: 'success', 
+                            message: `'${productoParaCarrito.nombre}' agregado`,
+                            timer: 2500,
+                            close: true})
+
                 btnCheckout.classList.add("girar-trompo")
                 btnCheckout.addEventListener("animationend", () => btnCheckout.classList.remove("girar-trompo"))
 
@@ -415,6 +440,97 @@ function activarClicksBtnComprar(){
     }
 }
 
+/*
+estatico.addEventListener("click", function(){
+    let dinamico = document.createElement("button")
+    dinamico.innerText = "dinamico"
+    dinamico.id = "dinamico"
+    document.body.appendChild(dinamico)
+})
+*/
+
+
+/*
+    1999: OBJETO LITERAL
+    2009: FUNCIONES CONSTRUCTORAS
+    2015: CLASES JS (basadas en método constructor)
+
+*/
+// OBJETO LITERAL
+// const Persona = {
+//     nombre: 'Fer',
+//     genero: 'Masculino',
+//     fechaNacimiento: '1975-03-21',
+//     profesion: 'Profe',
+
+//     calcularEdad: function() {
+//         let anioActual = new Date().getFullYear()
+//         let anioNac = this.fechaNacimiento.split("-")
+//         let edad = anioActual - parseInt(anioNac[0])
+//         return edad
+//     }
+// }
+
+// FUNCIONES CONSTRUCTORAS
+function Persona(nombre, genero, fn, profesion) {
+    this.nombre = nombre
+    this.genero = genero
+    this.fechaNacimiento = fn
+    this.profesion = profesion
+
+    this.calcularEdad = function() {
+        let anioActual = new Date().getFullYear()
+        let anioNac = this.fechaNacimiento.split("-")
+        let edad = anioActual - parseInt(anioNac[0])
+        return edad
+    }
+
+    this.retornarNombreYProfesion = function() {
+        return `${this.nombre} - ${this.profesion}`
+    }
+}
+
+const administrativa = new Persona('Gladis', 'Femenino', '1990-05-02', 'Compras')
+const tecnico = new Persona('Nico', 'Masculino', '1996-07-14', 'Mecánico')
+const dev = new Persona('Rita', 'Femenino', '1994-02-04', 'Programadora')
+
+// CLASES JS BASADAS EN MÉTODO CONSTRUCTOR
+class Producto {
+    constructor(nombre, precio, categoria, imagen) {
+        this.nombre = nombre
+        this.precio = precio
+        this.categoria = categoria
+        this.imagen = imagen
+    }
+
+    retornarPrecioConIVA() {
+        return this.precio * 1.21
+    }
+
+    retornarNombreMayus() {
+        return this.nombre.toUpperCase()
+    }
+
+    calcularDescuento10() {
+        return this.precio * 0.9
+    }
+
+    static about() {
+        console.log('Copyright 2025 - Educación IT - JS Avanzado.')
+    }
+
+    #categorias = ['Portátiles', 'Smartphones', 'Electro', 'Línea Blanca']
+
+    getCategorias() {
+        return this.#categorias
+    }
+}
+
+const arrayProductos = []
+arrayProductos.push(new Producto('Notebook i7', 1100, 'Portátil', '💻'))
+arrayProductos.push(new Producto('Smart TV', 500, 'TV', '📺'))
+
+
 //FUNCION PRINCIPAL
 cargarCategorias()
 //cargarProductos(productos)
@@ -423,5 +539,4 @@ obtenerProductos(productos)
 
 
 //document.appendChild(crearCardHTML())
-
 

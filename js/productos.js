@@ -1,6 +1,6 @@
 //ARRAY DE ELEMENTOS
 //const arrayCategorias = []
-const arrayCategorias = ["Todos", "Fruta", "Verdura", "Comida", "Bebida"]
+
 
 
 //ARRAY DE OBJETOS
@@ -198,4 +198,37 @@ function filtrarProductosPorCategoria(){
         }
         
     }
+}
+
+
+// EJEMPLO DE MANEJO DE PROMESAS JS
+
+/*
+    Estados de una promesa = 'Pending' > 'Fulfilled' > 'Rejected'
+    callbacks: resolve - reject
+    callback: resolve > método de control then() permite recibir el resultado
+    callback: reject > método de control catch() permite recibir el error
+
+    const arrayFetch = [fetch(URLeconomia), fetch(URLespectaculos), fetch(URLSalud)]
+
+    Promise.all()
+           .allSettled(arrayFetch)
+           .race()
+*/
+
+
+function generarNroRandom(){
+    return new Promise((resolve, reject) =>{
+        setTimeout(() => {
+            const nroRandom = Math.floor(Math.random() * 10000)
+            if(nroRandom > 4000){
+                //Promesa resuelta
+                resolve('Numero mayor a 4000: '+nroRandom)
+            }else{
+                //Promesa rechazada
+                reject('Numero menor o igual a 4000: '+nroRandom)
+            }
+        }, 5000)
+        
+    })
 }
