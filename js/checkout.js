@@ -1,19 +1,11 @@
+import {recuperarCarrito} from "./utils.js"
+
 //Enlazarnos con los elementos HTML (DOM) para generar interaccion
 const tableBody = document.querySelector("#tableBody")
 const totalPrice = document.querySelector("#totalPrice")
 const btnVolver = document.querySelector("#btnReturn")
 const btnComprar = document.querySelector("#btnBuy")
 
-//Nos armamos un carrito modelos, con productos pre-cargados (traer productos desde index.html)
-function recuperarCarrito() {
-    const carritoTemporal = JSON.parse(localStorage.getItem("carrito"))
-    
-    if (carritoTemporal === null) {
-        return []
-    } else {
-        return carritoTemporal
-    }
-}
 
 const carrito = recuperarCarrito()
 

@@ -143,30 +143,19 @@ listarPaises2(paisesNorte)
 */
 
 //INICIA CODIGO DE LA CLASE 3
-
-
+//################### IMPORTAR UTILIDADES #######################
+import {urlProductos, arrayCategorias, recuperarCarrito} from "./utils.js"
+import ToastIt from "./toastitv1.0.min.js"
 
 //################### VARIABLES GLOBALES - ACCESOS AL DOM ###################
 const divContainer = document.querySelector("#container")
 const divCategories = document.querySelector("#categories")
 const btnCheckout = document.querySelector("#botonCheckout")
 const inputSearch = document.querySelector("#inputSearch")
-const urlProductos = "https://681c21a96ae7c794cf70c313.mockapi.io/productos"
 const productos = []
 
-const arrayCategorias = ["Todos", "Fruta", "Verdura", "Comida", "Bebida"]
 
 
-
-
-function recuperarCarrito(){
-    const carritoTemporal = JSON.parse(localStorage.getItem("carrito"))
-    if(carritoTemporal === null){
-        return []
-    }else{
-        return carritoTemporal
-    }
-}
 
 const carrito = recuperarCarrito()
 

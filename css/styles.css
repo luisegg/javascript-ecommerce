@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+@import url('./toastitv1.0.modern.min.css');
+
 body {
     user-select: none;
     margin: 0;
@@ -147,6 +149,7 @@ body {
 }
 
 .backoffice-products {
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
     align-content: center;
