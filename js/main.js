@@ -144,8 +144,8 @@ listarPaises2(paisesNorte)
 
 //INICIA CODIGO DE LA CLASE 3
 //################### IMPORTAR UTILIDADES #######################
-import {urlProductos, arrayCategorias, recuperarCarrito} from "./utils.js"
-import ToastIt from "./toastitv1.0.min.js"
+import {urlProductos, arrayCategorias, recuperarCarrito, mostrarMensaje,
+        guardarCarrito} from "./utils.js"
 
 //################### VARIABLES GLOBALES - ACCESOS AL DOM ###################
 const divContainer = document.querySelector("#container")
@@ -174,20 +174,13 @@ btnCheckout.addEventListener("click", function(){
 */
 
 btnCheckout.addEventListener("click", () => {
-    //console.log('Ir a la pagina  checkout') 
-    if(carrito.length > 0 ){
-        location.href = "checkout.html"
-    }else{
-        console.warn("Carga al menos un producto en el carrito")
-    }
+    carrito.length > 0 ? location.href = "checkout.html"
+                       : console.warn("Carga al menos un producto en el carrito")
 })
 
 btnCheckout.addEventListener("mousemove", () => {
-    if(carrito.length > 0) {
-        btnCheckout.title = "Productos en carrito: "+ carrito.length
-    }else{
-        btnCheckout.title = "Sin productos en carrito"
-    }
+    btnCheckout.title = carrito.length > 0 ? "Productos en carrito: "+ carrito.length 
+                                           : "Sin productos en carrito"
 })
 
 /*
@@ -215,10 +208,13 @@ inputSearch.addEventListener("input", () => {
 // })
 
 inputSearch.addEventListener("input", (event) => {
-    console.log(event.key)
+    //console.log(event.key)
+    event.target.value.trim() === "" && cargarProductos(productos)
+    /*
     if(event.target.value.trim() === ""){ //si esta vacio, entonces se limpió la caja de busqueda con la X
         cargarProductos(productos) // vuelve a llamar a cargarProductos con el array completo
     }
+    */
 })
 
 inputSearch.addEventListener("keypress", (event) => {
@@ -387,44 +383,27 @@ function cargarProductos(array){
     }
 }
 
+function aplicarAnimacionEnCheckout(){
+    btnCheckout.classList.add("girar-trompo")
+    btnCheckout.addEventListener("animationend", () => btnCheckout.classList.remove("girar-trompo"))
+}
+
+
 function activarClicksBtnComprar(){
     const botonesComprar = document.querySelectorAll("button#buttonComprar")
     
     if(botonesComprar.length > 0){
         botonesComprar.forEach((botonComprar) => {
-            botonComprar.onclick = function(){
+            botonComprar.addEventListener("click", () => {
                 //console.log(botonComprar.dataset.codigo)
                 let productoParaCarrito = productos.find((producto) => producto.id === botonComprar.dataset.codigo)
                 carrito.push(productoParaCarrito)
-                let carritoString = JSON.stringify(carrito)
-                localStorage.setItem("carrito", carritoString)
-
-                ToastIt.now({style: 'success', 
-                            message: `'${productoParaCarrito.nombre}' agregado`,
-                            timer: 2500,
-                            close: true})
-
-                btnCheckout.classList.add("girar-trompo")
-                btnCheckout.addEventListener("animationend", () => btnCheckout.classList.remove("girar-trompo"))
-
-
-                // setTimeout(() =>{
-                //     btnCheckout.classList.remove("girar-trompo")
-                // }, 700)
-
+                guardarCarrito(carrito)
+                mostrarMensaje(`'${productoParaCarrito.nombre}' agregado`,'success', 2500)
+                aplicarAnimacionEnCheckout()
                 console.clear()
                 console.table(carrito)
-                /*
-                for (let producto of productos){
-                    if (producto.id === botonComprar.dataset.codigo) {
-                        carrito.push(producto)
-                        console.clear()
-                        console.table(carrito)
-                        break
-                    }
-                }*/
-                //Agregar al array una copia del producto completo.
-            }
+            })
         })
     }
 }

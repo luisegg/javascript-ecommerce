@@ -1,4 +1,4 @@
-import {recuperarCarrito} from "./utils.js"
+import {guardarCarrito, recuperarCarrito, mostrarMensaje} from "./utils.js"
 
 //Enlazarnos con los elementos HTML (DOM) para generar interaccion
 const tableBody = document.querySelector("#tableBody")
@@ -77,11 +77,24 @@ btnVolver.addEventListener("click", ()=>{
 //btnComprar: simular la finalizacion de la compra, vaciar carrito, retornar a index.html
 //Eliminar productos del carrito previo a finalizar la compra
 btnComprar.addEventListener("click", ()=>{
-    console.log("Compra finalizada, muchas gracias por elegirnos")
-    btnComprar.setAttribute("disabled", "true")
-    localStorage.removeItem("carrito")
-    carrito.length = 0
-    setTimeout(()=> location.href = "index.html", 4000)
+    Swal.fire({
+        title:"Confirmación de Compra",
+        text:"¿Desea confirmar la compra actual?",
+        icon: 'question',
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed){
+            console.log("Compra finalizada, muchas gracias por elegirnos")
+            btnComprar.setAttribute("disabled", "true")
+            localStorage.removeItem("carrito")
+            carrito.length = 0
+            setTimeout(()=> location.href = "index.html", 4000)
+        }
+        console.log(result)
+    })
 })
 
 
@@ -97,8 +110,9 @@ function activarClickBotonesEliminar(){
             //debugger
             let indice = carrito.findIndex((producto) => producto.id === boton.dataset.codigo)
             carrito.splice(indice, 1)
+            mostrarMensaje('Se ha quitado el producto del carrito', 'info', 3500)
             cargarCarritoDeCompras()
-            localStorage.setItem("carrito", JSON.stringify(carrito))
+            guardarCarrito(carrito)
             
 
         })
@@ -108,8 +122,6 @@ function activarClickBotonesEliminar(){
 
 
 
-//TODO: Ver LocalStorage y SessionStorage (mecanismos de almacenamiento local)
-//TODO: Objeto global JSON - nativo de JS - que permite convertir objectos a string i visceversa
 //TODO: Modificar el carrito para permitir cargar multiples producto en un unico registro (precio * cantidad)
 
 

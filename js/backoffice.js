@@ -1,5 +1,5 @@
-import {urlProductos} from "./utils.js"
-import ToastIt from "./toastitv1.0.min.js"
+import {urlProductos, mostrarMensaje} from "./utils.js"
+
 
 
 const dialog = document.querySelector("dialog")
@@ -81,14 +81,6 @@ function activarEventosClickEliminar(){
     })
 }
 
-function mostrarToast(mensaje, estilo){
-    ToastIt.now({
-        style:estilo,
-        message: mensaje,
-        timer: 3500,
-        close: false
-    })
-}
 
 function obtenerProductos() {
     fetch(urlProductos)
@@ -154,11 +146,11 @@ btnGuardar.addEventListener("click",()=>{
             console.table(data)
             inputId.value = data.id
             dialog.close()
-            mostrarToast("Producto dado de alta.", "success")
+            mostrarMensaje("Producto dado de alta.", "success")
             obtenerProductos()
         })
         .catch(error => {
-            mostrarToast("Error en alta de producto.", "error")
+            mostrarMensaje("Error en alta de producto.", "error")
             console.error(error)
         })
     }else{
@@ -183,11 +175,11 @@ btnGuardar.addEventListener("click",()=>{
         .then(data => {
             console.table(data)
             dialog.close()
-            mostrarToast("Producto modificado exitosamente.", "info")
+            mostrarMensaje("Producto modificado exitosamente.", "info")
             obtenerProductos()
         })
         .catch(error => {
-            mostrarToast("Error en alta de producto.", "error")
+            mostrarMensaje("Error en alta de producto.", "error")
             console.error(error)
         })
     }
@@ -207,12 +199,12 @@ btnEliminar.addEventListener("click", ()=>{
     .then(response => response.json())
     .then(data => {
         console.table(data)
-        mostrarToast("Producto eliminado exitosamente.", "alert")
+        mostrarMensaje("Producto eliminado exitosamente.", "alert")
         dialog.close()
         obtenerProductos()
     })
     .catch(error => {
-        mostrarToast("Error al eliminar producto.", "error")
+        mostrarMensaje("Error al eliminar producto.", "error")
         console.error(error)
     })
 })
