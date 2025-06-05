@@ -28,7 +28,7 @@ body {
 
     & h1, h2 {
         margin: 0;
-        color: #333;
+        color: #0d0d0d;
     }
 
     & h1 {
@@ -40,7 +40,7 @@ body {
         padding-top: 10px;
         font-size: 16px;
         font-weight: 300;
-        color: #7b7b7b;
+        color: #262525;
     }
 }
 
@@ -76,7 +76,7 @@ body {
     & span {
         padding-bottom: 4px;
         font-weight: 500;
-        color: rgb(133, 168, 232);
+        color: rgb(3, 83, 232);
         transition: transform 0.3s ease;
         border-bottom-width: 2px;
         border-bottom-style: solid;
@@ -319,7 +319,7 @@ article {
         border-top-right-radius: 25px;
         border-bottom-right-radius: 25px;
         padding-bottom: 10px;
-        background-color: rgba(100, 148, 237, 0.788);
+        background-color: rgba(5, 85, 233, 0.788);
     }
 
     & button:hover {
@@ -499,6 +499,14 @@ table {
     padding-left: 20%;
 }
 
+.categoria-title {
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
 .card-error {
     padding: 20px;
     max-width: 600px;
@@ -602,8 +610,9 @@ table {
     }
 
     & .product-price {
-        font-size: 16px;
-        color: cornflowerblue;
+        font-size: 18px;
+        font-weight: 600;
+        color: rgb(3, 83, 232);
         padding-bottom: 10px;
     }
 
@@ -617,7 +626,7 @@ table {
         border-radius: 4px;
         margin-top: 60px;
         padding-bottom: 10px;
-        background-color: rgba(100, 148, 237, 0.788);
+        background-color: rgb(3, 83, 232);
     }
 
     & .buy-button button:hover {
@@ -686,12 +695,12 @@ footer {
     bottom: 10px;
     right: 10px;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
     transition: transform 0.9s ease-in;
 
     & img {
-        opacity: .4;
+        /* opacity: .4;*/
+        width: 32px;
+        height: 32px;
     }
 }
 

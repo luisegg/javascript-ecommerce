@@ -152,12 +152,15 @@ const divContainer = document.querySelector("#container")
 const divCategories = document.querySelector("#categories")
 const btnCheckout = document.querySelector("#botonCheckout")
 const inputSearch = document.querySelector("#inputSearch")
+const arrowUp = document.querySelector('div#arrow-up')
 const productos = []
 
 
 
 
 const carrito = recuperarCarrito()
+
+
 
 
 //################### EVENTOS ###################
@@ -236,6 +239,17 @@ inputSearch.addEventListener("keypress", (event) => {
     
     }
 
+})
+
+document.addEventListener("scroll", () => {
+    const scrollY = window.scrollY
+    scrollY > 600 ? arrowUp.classList.remove('hide-arrow') 
+                  : arrowUp.classList.add('hide-arrow')
+})
+
+
+arrowUp.addEventListener("click", () => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
 })
 
 //################### FUNCIONES DE LOGICA ###################
@@ -329,6 +343,13 @@ function crearCardErrorHTML(){
 }
 
 
+function crearCategoriaHTML(cat){
+    return `<div class="categoria-title">
+                <p>${cat}</p>
+            </div>`
+}
+
+
 // function obtenerProductos(){
 //     fetch(urlProductos)
 //         .then((response) => {
@@ -351,6 +372,8 @@ async function obtenerProductos(){
             const data = await response.json()
             productos.push(...data)
             cargarProductos(productos)
+            //cargarProductosPorCategoria(productos)
+            //listarProductosAgrupados()
         }else{
             throw new Error('Error al obtener los productos')
         }
@@ -360,6 +383,17 @@ async function obtenerProductos(){
     
 }
 
+function cargarProductosPorCategoria(array){
+    divCategories.classList.add(".hide-arrow")
+    const productosAgrupados = Object.groupBy(array, (prod) => prod.categoria)
+    divContainer.innerHTML = ""
+    for (let categoria in productosAgrupados){
+        divContainer.innerHTML += crearCategoriaHTML(categoria)
+        productosAgrupados[categoria].forEach((prod) => {
+            divContainer.innerHTML += crearCardHTML(prod)
+        })
+    }
+}
 
 function cargarProductos(array){
     if(array.length > 0){
@@ -405,6 +439,16 @@ function activarClicksBtnComprar(){
                 console.table(carrito)
             })
         })
+    }
+}
+
+function listarProductosAgrupados(){
+    const productosAgrupados = Object.groupBy(productos, (prod) => prod.categoria)
+    console.log(productosAgrupados)
+
+    for (let categoria in productosAgrupados){
+        console.log(categoria)
+        console.table(productosAgrupados[categoria])
     }
 }
 
@@ -458,9 +502,6 @@ function Persona(nombre, genero, fn, profesion) {
     }
 }
 
-const administrativa = new Persona('Gladis', 'Femenino', '1990-05-02', 'Compras')
-const tecnico = new Persona('Nico', 'Masculino', '1996-07-14', 'Mecánico')
-const dev = new Persona('Rita', 'Femenino', '1994-02-04', 'Programadora')
 
 // CLASES JS BASADAS EN MÉTODO CONSTRUCTOR
 class Producto {
@@ -497,6 +538,14 @@ class Producto {
 const arrayProductos = []
 arrayProductos.push(new Producto('Notebook i7', 1100, 'Portátil', '💻'))
 arrayProductos.push(new Producto('Smart TV', 500, 'TV', '📺'))
+
+
+
+// document.addEventListener("scroll", () => {
+//     const scrollY = window.scrollY
+//     scrollY > 600 ? addClass
+// })
+
 
 
 //FUNCION PRINCIPAL
