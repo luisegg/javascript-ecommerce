@@ -132,10 +132,6 @@ titulo.addEventListener('click', ()=>{
 
 
 
-
-
-
-
 listarPaises()
 console.log('---------------------')
 listarPaises2(paisesNorte)
